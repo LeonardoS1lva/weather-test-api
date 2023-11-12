@@ -10,6 +10,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    max-height: 100vh;
     gap: 15px;
     background-color: rgb(163, 241, 241);
     background-image: url(../../assets/imgs/bg-weather.png);
