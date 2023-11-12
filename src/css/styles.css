@@ -1,0 +1,108 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 15px;
+    background-color: rgb(163, 241, 241);
+    background-image: url(../../assets/imgs/bg-weather.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+body.background-default {
+    background-image: url(../../assets/imgs/bg-weather.png);
+}
+
+body.backgroud-clear {
+    background-image: url(../../assets/imgs/bg-clear.jpg);
+}
+
+body.backgroud-clouds {
+    background-image: url(../../assets/imgs/bg-clouds.jpg);
+}
+
+body.backgroud-drizzle {
+    background-image: url(../../assets/imgs/bg-drizzle.jpg);
+}
+
+body.backgroud-mist {
+    background-image: url(../../assets/imgs/bg-mist.jpg);
+}
+
+body.backgroud-rain {
+    background-image: url(../../assets/imgs/bg-rain.jpg);
+}
+
+body.backgroud-snow {
+    background-image: url(../../assets/imgs/bg-snow.jpg);
+}
+
+body.backgroud-thunderstorm {
+    background-image: url(../../assets/imgs/bg-thunderstorm.jpg);
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.title {
+    font-size: 3.5rem;
+}
+
+input {
+    font-size: 2rem;
+}
+
+input,
+.btn-confirm {
+    width: 300px;
+    height: 40px;
+    border-radius: 2rem;
+    padding: 5%;
+}
+
+.btn-confirm {
+    color: #fff;
+    background-color: #000;
+    border-color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-confirm:hover {
+    color: #000;
+    background-color: #fff;
+    border-color: #000;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+    .title {
+        font-size: 2.5rem;
+    }
+}
+
+.value {
+    font-size: 2.4rem;
+    color: rgb(0, 0, 0);
+}
+
+.icon-weather {
+    display: flex;
+    justify-content: center;
+}
