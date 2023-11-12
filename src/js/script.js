@@ -16,11 +16,14 @@ async function getDataApi() {
             .then((data) => {
                 if (data?.cod && data.cod === "404") {
                     cleanFields();
+                    backgroundWeather("");
                     return alert("Local não encontrado!");
                 }
                 loadData(data);
             });
     } catch (error) {
+        cleanFields();
+        backgroundWeather("");
         alert(error);
     }
 }
