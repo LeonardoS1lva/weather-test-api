@@ -7,34 +7,42 @@ const cityName = document.getElementById("city-name");
 const iconWeather = document.getElementById("icon-weather");
 const body = document.querySelector("body");
 
+const url = "https://api.openweathermap.org";
+
 async function getDataApi() {
-    let url = `https://api.openweathermap.org/data/2.5/weather?q=${fieldCity.value}&units=metric&lang=pt_br&appid=94f2162542577518465292d2fe11411c`;
+    const wheatherURL = `${url}/data/2.5/weather?q=${fieldCity.value}&units=metric&lang=pt_br&appid=94f2162542577518465292d2fe11411c`;
 
     try {
-        await fetch(url)
-            .then((res) => res.json())
-            .then((data) => {
-                if (data?.cod && data.cod === "404") {
-                    cleanFields();
-                    backgroundWeather("");
-                    return alert("Local não encontrado!");
-                }
-                loadData(data);
-            });
+        const response = await fetch(wheatherURL);
+        const data = await response.json();
+
+        if (data.cod && data.cod === "404") {
+            cleanFields();
+            return alert("Local não encontrado!");
+        }
+
+        const geoURL = `${url}/geo/1.0/direct?q=${fieldCity.value},${data.sys.country}&appid=94f2162542577518465292d2fe11411c`;
+        const geoResponse = await fetch(geoURL);
+        const req = await geoResponse.json();
+
+        if (req.cod && req.cod === "404") {
+            return alert("Estado não encontrado!");
+        }
+
+        loadData(data, req);
     } catch (error) {
-        cleanFields();
-        backgroundWeather("");
         alert(error);
     }
 }
 
-function loadData(data) {
+
+function loadData(data, req) {
     currentTemp.innerHTML = `Temperatura atual: <span class="value">${Math.floor(data.main.temp)}° C</span>`;
     feelsLike.innerHTML = `Sensação térmica: <span class="value">${Math.floor(data.main.feels_like)}° C</span>`;
     description.innerHTML = `Descrição: <span class="value">${data.weather[0].description}</span>`;
-    cityName.innerHTML = `<span class="value">${data.name}, ${data.sys.country}</span>`;
+    cityName.innerHTML = `<span class="value">${data.name}, ${req[0].state},${data.sys.country}</span>`;
     iconWeather.innerHTML = `<img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png">`;
-    backgroundWeather(data);
+    backgroundWeather(data.weather[0].main);
 }
 
 function cleanFields() {
@@ -43,62 +51,23 @@ function cleanFields() {
     description.innerHTML = "";
     cityName.innerHTML = "";
     iconWeather.innerHTML = "";
+    removeBackground();
 }
 
 function removeBackground() {
-    body.classList.remove("backgroud-clear");
-    body.classList.remove("backgroud-thunderstorm");
-    body.classList.remove("backgroud-drizzle");
-    body.classList.remove("backgroud-rain");
-    body.classList.remove("backgroud-snow");
-    body.classList.remove("backgroud-mist");
-    body.classList.remove("backgroud-clouds");
-    body.classList.remove("backgroud-default");
+    body.classList = "";
 }
 
-function backgroundWeather(data) {
-    switch (data.weather[0].main) {
-        case "Clear":
-            removeBackground();
-            body.classList.add("backgroud-clear");
-            break;
-        case "Thunderstorm":
-            removeBackground();
-            body.classList.add("backgroud-thunderstorm");
-            break;
-        case "Drizzle":
-            removeBackground();
-            body.classList.add("backgroud-drizzle");
-            break;
-        case "Rain":
-            removeBackground();
-            body.classList.add("backgroud-rain");
-            break;
-        case "Snow":
-            removeBackground();
-            body.classList.add("backgroud-snow");
-            break;
-        case "Mist":
-            removeBackground();
-            body.classList.add("backgroud-mist");
-            break;
-        case "Clouds":
-            removeBackground();
-            body.classList.add("backgroud-clouds");
-            break;
-        default:
-            removeBackground();
-            body.classList.add("backgroud-default");
-            break;
-    }
+function backgroundWeather(weatherMain) {
+    const weatherClass = `background-${weatherMain.toLowerCase()}`;
+    removeBackground();
+    body.classList.add(weatherClass);
 }
 
-btnConfirm.addEventListener("click", () => {
-    getDataApi();
-});
+btnConfirm.addEventListener("click", getDataApi);
 
 fieldCity.addEventListener("keypress", (event) => {
     if (event.key === "Enter") {
         getDataApi();
     }
-})
+});

@@ -10,7 +10,6 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    max-height: 100vh;
     gap: 15px;
     background-color: rgb(163, 241, 241);
     background-image: url(../../assets/imgs/bg-weather.png);
@@ -22,31 +21,31 @@ body.background-default {
     background-image: url(../../assets/imgs/bg-weather.png);
 }
 
-body.backgroud-clear {
+body.background-clear {
     background-image: url(../../assets/imgs/bg-clear.jpg);
 }
 
-body.backgroud-clouds {
+body.background-clouds {
     background-image: url(../../assets/imgs/bg-clouds.jpg);
 }
 
-body.backgroud-drizzle {
+body.background-drizzle {
     background-image: url(../../assets/imgs/bg-drizzle.jpg);
 }
 
-body.backgroud-mist {
+body.background-mist {
     background-image: url(../../assets/imgs/bg-mist.jpg);
 }
 
-body.backgroud-rain {
+body.background-rain {
     background-image: url(../../assets/imgs/bg-rain.jpg);
 }
 
-body.backgroud-snow {
+body.background-snow {
     background-image: url(../../assets/imgs/bg-snow.jpg);
 }
 
-body.backgroud-thunderstorm {
+body.background-thunderstorm {
     background-image: url(../../assets/imgs/bg-thunderstorm.jpg);
 }
 
